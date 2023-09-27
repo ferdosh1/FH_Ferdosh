@@ -1,0 +1,259 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = " FH Ferdosh Official | Game ",
+   LoadingTitle = " Premium Script  ",
+   LoadingSubtitle = "by 1_F0",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Example Hub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Key | Youtube Hub",
+      Subtitle = "Key System",
+      Note = "Key In Video",
+      FileName = "YoutubeHubKey1", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://pastebin.com/raw/1eNwDSkh"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("Home", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+   Title = "Premium Script By FH Ferdosh",
+   Content = "Premium",
+   Duration = 5,
+   Image = 13047715178,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Infinite Jump",
+   Callback = function()
+       --Toggles the infinite jump between on or off on every script run
+_G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--Notifies readiness
+	game.StarterGui:SetCore("SendNotification", {Title="Youtube Hub"; Text="Infinite Jump Activated!"; Duration=5;})
+
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "WalkSpeed Slider",
+   Range = {1, 100},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderws", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "JumpPower Slider",
+   Range = {1, 100},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderjp", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
+   end,
+})
+
+local Dropdown = MainTab:CreateDropdown({
+   Name = "Select Area",
+   Options = {"Starter World","Pirate Island","Pineapple Paradise"},
+   CurrentOption = {"Starter World"},
+   MultipleOptions = false,
+   Flag = "dropdownarea", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+        print(Option)
+   end,
+})
+
+local Input = MainTab:CreateInput({
+   Name = "Walkspeed",
+   PlaceholderText = "1-100",
+   RemoveTextAfterFocusLost = true,
+   Callback = function(Text)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Text)
+   end,
+})
+
+local OtherSection = MainTab:CreateSection("Other")
+
+local Toggle = MainTab:CreateToggle({
+   Name = "Auto Farm",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        print("FARMING")
+   end,
+})
+
+local TPTab = Window:CreateTab("🏝 Teleports", nil) -- Title, Image
+
+local Button1 = TPTab:CreateButton({
+   Name = "FH Ferdosh",
+   Callback = function()
+        --// Exploit Fix \\--
+if not pcall(function() return syn.protect_gui end) then
+    syn = {}
+    syn.protect_gui = function(A_1)
+        A_1.Parent = game:GetService("CoreGui")
+    end
+end
+
+--// Services \\--
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+
+--// Variable \\--
+local Player = Players.LocalPlayer
+local Ignore = {}
+
+--// ESP Library by Kiriot22 \\--
+local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
+ESP:Toggle(true)
+ESP.Players = false
+ESP.Boxes = false
+
+--// UI Library \\--
+local Library = loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/Just-Egg-Salad/roblox-scripts/main/uwuware'))()
+local Window = Library:CreateWindow("Memory by Ezpi#0474")
+Window:AddButton({
+    text = "Clear",
+    callback = function()
+        for _, A_1 in next, ESP.Objects do
+            A_1:Remove()
+        end
+    end
+})
+Library:Init()
+
+--// Set Tile \\--
+function Detect(Root, C)
+    -- Parameters
+    local Params = RaycastParams.new()
+    Params.FilterDescendantsInstances = Ignore
+    Params.FilterType = Enum.RaycastFilterType.Blacklist
+    -- RayCast
+    local Hit = Workspace:Raycast(Root.Position, Vector3.new(0, -6, 0), Params)
+    if Hit and Hit.Instance:FindFirstChildOfClass("TouchTransmitter") then
+        print(Hit.Instance)
+        ESP:Add(Hit.Instance, {
+            Name = "Ezpi",
+            PrimaryPart = Hit.Instance,
+            Color = C,
+            IsEnabled = function(A_1)
+                return Player:DistanceFromCharacter(A_1.PrimaryPart.Position) <= 125
+            end
+        })
+    end
+end
+
+--// Humanoid Detect Stuff \\--
+function OnDeath(Char)
+    -- Variables
+    local Humanoid = Char:WaitForChild("Humanoid")
+    while not Char.PrimaryPart do
+        task.wait()
+    end
+    local Root = Char.PrimaryPart
+    -- Store
+    table.insert(Ignore, Char)
+    -- Detect Changes
+    Humanoid.StateChanged:Connect(function(Old, New)
+        if Char == Player.Character then
+            print(Old, New)
+        end
+        if Old == Enum.HumanoidStateType.Freefall and New == Enum.HumanoidStateType.Landed or New == Enum.HumanoidStateType.Jumping then
+            Detect(Root, Color3.new(0, 1, 0))
+        elseif New == Enum.HumanoidStateType.Dead then
+            Detect(Root, Color3.new(1, 0, 0))
+        end
+    end)
+end
+
+--// Detect Player Death \\--
+for _, A_1 in next, Players:GetPlayers() do
+    if A_1.Character then
+        task.spawn(function()
+            OnDeath(A_1.Character)
+        end)
+    end
+    A_1.CharacterAdded:Connect(OnDeath)
+    A_1.CharacterRemoving:Connect(function(Char)
+        local Index = table.find(Ignore, Char)
+        if Index then
+            table.remove(Ignore, Index)
+        end
+    end)
+end
+Players.PlayerAdded:Connect(function(Plr)
+    if Plr.Character then
+        task.spawn(function()
+            OnDeath(Plr.Character)
+        end)
+    end
+    Plr.CharacterAdded:Connect(OnDeath)
+    Plr.CharacterRemoving:Connect(function(Char)
+        local Index = table.find(Ignore, Char)
+        if Index then
+            table.remove(Ignore, Index)
+        end
+    end)
+end)
+
+--// Ignore Fake Parts \\--
+function FakePart(Part)
+    if Part:IsA("TouchTransmitter") and Part.Parent.Transparency >= 0.9 then
+        table.insert(Ignore, Part.Parent)
+    end
+end
+
+--// Detect Parts \\--
+Workspace.DescendantAdded:Connect(FakePart)
+for _, A_1 in next, Workspace:GetDescendants() do
+    FakePart(A_1)
+end
+   end,
+})
