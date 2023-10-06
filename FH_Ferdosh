@@ -1,7 +1,7 @@
 	if game.PlaceId == 12641272458 then
  
 		local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-		local Window = OrionLib:MakeWindow({Name = "BaconBoss Hub | Teamwork Puzzles 2 (Obby)", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+		local Window = OrionLib:MakeWindow({Name = "FH Ferdosh Premium Script", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 		
 		_G.egg = true
 		_G.segg = "Superhero"
@@ -42,14 +42,6 @@
 			end    
 		})
 		
-		MainTab:AddToggle({
-			Name = "Auto Rebirth",
-			Default = false,
-			Callback = function(Value)
-				_G.rb = Value
-				rb()
-			end    
-		})
 		
 		eggTab:AddDropdown({
 			Name = "Select",
